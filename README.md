@@ -16,7 +16,7 @@ I am passionate about:
 - 📦 Scalable and production-ready applications
 
 Currently pursuing:
-**Master of Software Engineering (AI & Advanced Systems)**  
+**Bachelor of Software Engineering (AI & Advanced Systems)**  
 *Torrens University Australia*
 
 ---
