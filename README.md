@@ -99,16 +99,6 @@ Currently pursuing:
 
 ## 💼 Experience
 
-### 👩‍🏫 Android Development Instructor
-**Softwarica College of IT & E-commerce (Nepal)**  
-*Mar 2021 – May 2023*
-
-- Taught Kotlin, Jetpack Compose, MVVM
-- Mentored students in real-world projects
-- Introduced Agile & Git workflows
-
----
-
 ### ☁️ Cloud & DevOps Project Lead
 **Academic Capstone Project (Australia)**  
 
@@ -144,9 +134,9 @@ Currently pursuing:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/grishma2477/devOps-milestone.git
 
 # Navigate into the project folder
-cd your-repo-name
+cd devOps-milestone
 
 # Open index.html in browser
