@@ -1,142 +1,95 @@
-# 🌐 Grishma Kandel - Portfolio Website
+# 🚀 DevOps Capstone Project – Milestone 1
 
-Welcome to my personal portfolio website!  
-This project showcases my skills, projects, and experience as a **Cloud & DevOps Engineer** and **MERN Stack Developer**.
+## 📌 Basic CI/CD with GitHub, Jenkins & Nginx
 
----
-
-## 🚀 About Me
-
-Hi, I'm **Grishma Kandel**, a Software Engineering student based in Sydney, Australia 🇦🇺  
-
-I am passionate about:
-- ☁️ Cloud Computing
-- ⚙️ DevOps & CI/CD
-- 🌐 Web Development (MERN Stack)
-- 📦 Scalable and production-ready applications
-
-Currently pursuing:
-**Bachelor of Software Engineering (AI & Advanced Systems)**  
-*Torrens University Australia*
+This milestone focuses on building a **foundational CI/CD pipeline** to deploy a static website using **GitHub, Jenkins, and Nginx**.
 
 ---
 
-## 🛠️ Tech Stack
+## 🎯 Goal
 
-### 💻 Programming
-- Java
-- Python
-- C / C++
-- JavaScript
-- SQL
-
-### 🌐 Web Development
-- HTML, CSS
-- Responsive Design
-- Frontend Development
-
-### ☁️ Cloud & DevOps
-- AWS, Azure, GCP
-- Docker
-- Kubernetes
-- Jenkins
-- Ansible
-- Terraform
-- Nginx
-- CI/CD Pipelines
-
-### 🔧 Tools & Others
-- Git & GitHub
-- REST APIs
-- Database Management
+Establish a simple CI/CD workflow that:
+- Pulls code from GitHub
+- Uses Jenkins for automation
+- Deploys static content to Nginx web server
 
 ---
 
-## 📂 Featured Projects
+## 🏗️ Architecture
 
-### 🚀 End-to-End CI/CD Pipeline
-- Multi-cloud DevOps pipeline using:
-  - GitHub, Jenkins, Docker
-  - Kubernetes, Ansible, Nginx
-- Automated deployment workflows
-- Secure domain-based routing
+Developer → GitHub → Jenkins (AWS EC2) → Nginx (GCP VM) → Browser
 
 ---
 
-### 🛒 ShopStream (MERN E-commerce)
-- Full-stack e-commerce application
-- Features:
-  - Authentication
-  - Product management
-  - Cart & order system
-- Tech: MongoDB, Express, React, Node.js
+## ⚙️ Tech Stack
+
+- **Jenkins** – CI Server (AWS EC2)
+- **GitHub** – Code Repository
+- **Nginx** – Web Server (GCP VM)
+- **AWS EC2** – Jenkins Hosting
+- **Google Cloud Platform (GCP)** – Web Server Hosting
+- **Ubuntu 22.04 LTS** – Operating System
 
 ---
 
-## 📌 Other Projects
+## 🔧 What I Did
 
-### 🌐 Exclusive (MERN App)
-- Modern responsive MERN application
-- Secure authentication & scalable backend  
-🔗 https://github.com/grishma2477/exclusive
-
----
-
-### 🎓 Student Management System
-- CRUD-based system with authentication
-- Tech: Java, SQL  
-🔗 https://github.com/grishma2477/sms
+- Provisioned a Jenkins server on AWS EC2
+- Installed and configured Jenkins
+- Created a GitHub repository for static web content
+- Configured a Jenkins Freestyle Job to:
+  - Pull code from GitHub
+  - Copy files to `/var/www/html` on Nginx server
+  - Reload Nginx
+- Set up SSH authentication between Jenkins and Nginx server
+- Deployed website and verified via public IP
 
 ---
 
-### ⚙️ Basic DevOps Projects
-- Docker containerization
-- Nginx setup
-- CI/CD workflows  
-🔗 https://github.com/grishma2477/devOps-milestone
+## 🔁 CI/CD Workflow
+
+1. Developer pushes code to GitHub  
+2. Jenkins pulls latest code  
+3. Jenkins transfers files to Nginx server  
+4. Nginx serves updated website  
 
 ---
 
-## 💼 Experience
+## ✅ Validation
 
-### ☁️ Cloud & DevOps Project Lead
-**Academic Capstone Project (Australia)**  
-
-- Built multi-cloud CI/CD pipeline
-- Worked with AWS, Azure, GCP
-- Implemented secure deployments
+- Website updates automatically after Jenkins run  
+- Accessible via public IP  
+- End-to-end pipeline working successfully  
 
 ---
 
-## 📬 Contact Me
+## 💡 Key Learnings
 
-📧 Email: hello@grishma.dev  
-📍 Location: Sydney, Australia  
-
-🔗 Links:
-- GitHub: https://github.com/grishma2477  
-- LinkedIn: https://www.linkedin.com/in/grishma2477  
-- Portfolio: https://grishma.dev  
+- Understanding real-world CI/CD flow  
+- Hands-on experience with Jenkins jobs  
+- Working with multi-cloud setup (AWS + GCP)  
+- Nginx deployment and configuration  
+- SSH-based automation between servers  
 
 ---
 
-## 🎯 Features of This Portfolio
+## 🔗 Repository Info
 
-- Responsive modern UI
-- Clean and structured layout
-- Project showcase section
-- Skills & experience highlights
-- Contact form UI
+- **Repo:** https://github.com/grishma2477/devOps-milestone.git  
+- **Branch:** `mile-1`
 
 ---
 
-## 📦 How to Run Locally
+## 🚀 Next Step
 
-```bash
-# Clone the repository
-git clone https://github.com/grishma2477/devOps-milestone.git
+➡️ Moving to **Milestone 2: Dockerized Deployment & Reverse Proxy**
 
-# Navigate into the project folder
-cd devOps-milestone
+---
 
-# Open index.html in browser
+## 👩‍💻 Author
+
+**Grishma Kandel**  
+Cloud & DevOps Engineer | MERN Stack Developer  
+📍 Sydney, Australia  
+
+---
