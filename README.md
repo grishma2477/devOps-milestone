@@ -8,6 +8,12 @@ The project follows a **multi-cloud architecture** using **AWS, GCP, and Azure**
 
 ---
 
+## 📸 Architecture Overview
+
+<p align="center">
+  <img src="mile2.png" alt="Milestone 2 Architecture" width="800" height ="auto">
+</p>
+
 ## 🎯 Goal
 
 Build a secure and automated deployment workflow that:
