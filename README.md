@@ -6,6 +6,14 @@ This milestone focuses on building a **foundational CI/CD pipeline** to deploy a
 
 ---
 
+## 📸 Architecture Overview
+
+<p align="center">
+  <img src="mile1.png" alt="Milestone 1 Architecture" width="800" height ="auto">
+</p>
+
+---
+
 ## 🎯 Goal
 
 Establish a simple CI/CD workflow that:
