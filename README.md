@@ -1,31 +1,31 @@
-# 🚀 DevOps Capstone Project – Milestone 2
+# 🚀 DevOps Capstone Project – Milestone 3
 
-## 📌 Dockerized Nginx Application with Host-Based Reverse Proxy
+## 📌 Fully Automated CI/CD Pipeline with IAC Tools
 
-This milestone focuses on **containerizing a web application using Docker** and implementing a **host-based Nginx Reverse Proxy** to securely expose the application through a custom domain.
+This milestone focuses on building a fully automated multi-cloud DevOps pipeline using **Terraform**, **Ansible**, **Jenkins**, **Docker**, and **Nginx Reverse Proxy**.
 
-The project follows a **multi-cloud architecture** using **AWS, GCP, and Azure**, while introducing Docker-based deployments and production-style traffic routing.
+The project introduces **Infrastructure as Code (IaC)** for provisioning, **Configuration as Code (CaC)** for deployment automation, SSL-enabled secure access, and email notifications for production-ready CI/CD workflows.
 
 ---
 
 ## 📸 Architecture Overview
 
 <p align="center">
-  <img src="mile2.png" alt="Milestone 2 Architecture" width="800" height ="auto">
+  <img src="mile3.png" alt="Milestone 3 Architecture" width="900">
 </p>
 
 ---
 
 ## 🎯 Goal
 
-Build a secure and automated deployment workflow that:
+Implement a fully automated CI/CD pipeline that:
 
-- Containerizes the application using Docker
-- Builds and pushes Docker images through Jenkins
-- Deploys containers on a Docker host
-- Uses Nginx as a Reverse Proxy
-- Exposes the application through a custom domain
-- Restricts direct access to the application server
+- Provisions infrastructure using Terraform
+- Configures servers using Ansible
+- Builds and deploys Docker containers automatically
+- Implements SSL-secured access
+- Enables email notifications for pipeline events
+- Uses a multi-cloud architecture across AWS, Azure, and GCP
 
 ---
 
@@ -38,19 +38,22 @@ Developer
 GitHub
     │
     ▼
-Jenkins (AWS EC2)
+Jenkins (GCP VM)
+    │ SSH
+    ▼
+Ansible Server (Azure VM)
     │
     ▼
 Docker Repository
     │
     ▼
-Docker Host (GCP VM)
+Docker Host (AWS EC2)
     │
     ▼
 Nginx Reverse Proxy (Azure VM)
     │
     ▼
-Browser (grishma.dev)
+Browser (https://grishma.dev)
 ```
 
 ---
@@ -59,66 +62,82 @@ Browser (grishma.dev)
 
 - **GitHub** – Source Code Repository
 - **Jenkins** – CI/CD Automation Server
-- **Docker** – Containerization Platform
-- **Nginx** – Reverse Proxy & Web Server
-- **AWS EC2 (Ubuntu)** – Jenkins Host
-- **Google Cloud Platform (GCP VM)** – Docker Host
-- **Microsoft Azure VM** – Reverse Proxy Host
+- **Terraform** – Infrastructure as Code (IaC)
+- **Ansible** – Configuration Management & Automation
+- **Docker** – Container Platform
+- **Nginx** – Reverse Proxy & SSL Termination
+- **AWS EC2** – Docker Host
+- **Azure VM** – Ansible Server & Reverse Proxy
+- **GCP VM** – Jenkins Server
+- **Let's Encrypt** – SSL Certificate Provider
+- **Gmail Notifications** – Build Success/Failure Alerts
 - **Ubuntu 22.04 LTS** – Operating System
-- **Custom Domain (grishma.dev)** – Application Access
 
 ---
 
 ## 🔧 What I Did
 
-### Jenkins Server (AWS EC2)
+### Infrastructure Provisioning
 
-- Provisioned AWS EC2 instance
+- Used Terraform to provision infrastructure
+- Created resources across AWS, Azure, and GCP
+- Automated infrastructure deployment process
+
+### Jenkins Server (GCP VM)
+
 - Installed and configured Jenkins
 - Connected Jenkins with GitHub repository
-- Created CI/CD pipeline for Docker image build and deployment
+- Configured CI/CD pipeline automation
+- Integrated email notification system
 
-### Docker Host (GCP VM)
+### Ansible Automation Server (Azure VM)
 
-- Provisioned GCP Virtual Machine
+- Installed and configured Ansible
+- Configured passwordless SSH access from Jenkins
+- Created reusable Ansible Playbooks
+- Automated application deployment process
+
+### Docker Host (AWS EC2)
+
 - Installed Docker Engine
-- Configured server to run containerized applications
-- Pulled Docker image from Docker Repository
-- Deployed Nginx application container on port **8081**
+- Configured Docker Host using Ansible
+- Pulled Docker images from Docker Repository
+- Deployed and managed application containers
 
-### Docker Image Creation
+### Docker Image Automation
 
-- Created Dockerfile using **nginx:latest**
-- Packaged application into Docker image
-- Automated image build process through Jenkins
-- Pushed image to Docker Repository
+- Built Docker image using Dockerfile
+- Automated image creation through Ansible
+- Pushed Docker image to Docker Repository
+- Automated container deployment
 
-### Reverse Proxy Configuration (Azure VM)
+### Reverse Proxy & SSL
 
-- Provisioned Azure Virtual Machine
-- Installed and configured Nginx
-- Configured host-based reverse proxy
-- Forwarded incoming traffic to Docker container running on GCP VM
-- Configured domain-based routing using **grishma.dev**
+- Configured Nginx Reverse Proxy on Azure VM
+- Forwarded traffic to Docker container running on AWS
+- Installed SSL Certificate using Let's Encrypt
+- Enabled HTTPS access through grishma.dev
 
-### Security Enhancements
+### Email Notifications
 
-- Restricted direct access to Docker server IP
-- Allowed access only through the reverse proxy
-- Implemented secure traffic routing through custom domain
+- Configured build success notifications
+- Configured build failure notifications
+- Improved monitoring and deployment visibility
 
 ---
 
 ## 🔁 CI/CD Workflow
 
 1. Developer pushes code to GitHub
-2. Jenkins pulls latest source code
-3. Jenkins builds Docker image using Dockerfile
-4. Jenkins pushes image to Docker Repository
-5. GCP Docker Host pulls latest image
-6. Docker container is deployed automatically
-7. Azure Nginx Reverse Proxy forwards requests
-8. Users access application through **grishma.dev**
+2. Jenkins detects code changes
+3. Jenkins transfers code to Ansible Server
+4. Ansible executes deployment Playbooks
+5. Docker image is built automatically
+6. Image is pushed to Docker Repository
+7. AWS Docker Host pulls latest image
+8. Container is deployed automatically
+9. Nginx Reverse Proxy forwards HTTPS traffic
+10. Email notification is sent for pipeline result
 
 ---
 
@@ -134,7 +153,7 @@ https://grishma.dev
 Nginx Reverse Proxy (Azure VM)
       │
       ▼
-Docker Host (GCP VM)
+Docker Host (AWS EC2)
       │
       ▼
 Nginx Application Container (Port 8081)
@@ -144,51 +163,56 @@ Nginx Application Container (Port 8081)
 
 ## ✅ Validation
 
-- Website successfully accessible through **grishma.dev**
-- Nginx Reverse Proxy forwards traffic correctly
-- Docker container serves application on port **8081**
-- Jenkins pipeline builds and deploys successfully
-- New deployments automatically update the website
-- Direct access to Docker Host IP is restricted
-- End-to-end CI/CD pipeline functioning successfully
+- GitHub push automatically triggers Jenkins pipeline
+- Jenkins successfully communicates with Ansible Server
+- Ansible builds Docker image and pushes to repository
+- AWS Docker Host pulls and deploys container successfully
+- Nginx Reverse Proxy serves traffic correctly
+- SSL certificate configured successfully
+- Website accessible only through HTTPS
+- Direct access to AWS server IP restricted
+- Email notifications received on build success and failure
+- End-to-end automated deployment pipeline working successfully
 
 ---
 
 ## 💡 Key Learnings
 
-- Docker containerization fundamentals
-- Creating and managing Docker images
-- Writing Dockerfiles for application deployment
-- Jenkins-based Docker automation
-- Host-based Reverse Proxy configuration using Nginx
-- Multi-cloud architecture implementation
-- Traffic routing and application exposure
-- Secure deployment practices
-- Production-style infrastructure design
-- CI/CD pipeline integration with Docker
+- Infrastructure as Code using Terraform
+- Configuration Management using Ansible
+- Multi-cloud infrastructure orchestration
+- SSH-based automation workflows
+- Docker deployment automation
+- Jenkins pipeline automation
+- Reverse Proxy configuration
+- SSL certificate management
+- Production-ready deployment practices
+- Monitoring through email notifications
+- End-to-end DevOps automation
 
 ---
 
 ## 🔒 Security Best Practices Applied
 
-- Domain-based access using **grishma.dev**
-- Reverse Proxy acting as the single entry point
-- Docker Host not directly exposed to public users
-- Separation of application and proxy layers
-- Controlled traffic flow between cloud environments
+- SSL Certificate enabled using Let's Encrypt
+- HTTPS-only access via grishma.dev
+- Reverse Proxy acts as secure entry point
+- Docker Host not directly exposed to users
+- Automated infrastructure and configuration management
+- Restricted direct access to AWS Docker Host
 
 ---
 
 ## 🔗 Repository Info
 
 - **Repo:** https://github.com/grishma2477/devOps-milestone
-- **Branch:** `mile2`
+- **Branch:** `mile3`
 
 ---
 
 ## 🚀 Next Step
 
-➡️ Moving to **Milestone 3: Fully Automated CI/CD Pipeline with IAC Tools**
+➡️ Moving to **Milestone 4: Kubernetes Deployment & Container Orchestration**
 
 ---
 
@@ -200,4 +224,4 @@ Cloud & DevOps Engineer | MERN Stack Developer
 
 ---
 
-⭐ This milestone provided hands-on experience with **Docker, Jenkins, Nginx Reverse Proxy, multi-cloud deployments, CI/CD automation, and secure production-style application delivery**, forming the foundation for Kubernetes and cloud-native DevOps practices.
+⭐ This milestone provided hands-on experience with Terraform, Ansible, Jenkins, Docker, SSL Certificates, Infrastructure as Code, Configuration Management, and fully automated multi-cloud CI/CD pipelines, helping build production-ready DevOps skills.

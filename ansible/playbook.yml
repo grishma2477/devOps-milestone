@@ -1,0 +1,126 @@
+---
+- name: Build and Push Docker Image from Localhost
+  hosts: localhost
+  become: true
+
+  vars:
+    image_name: grishma2477/mymilestone3
+    image_tag: latest
+    dockerhub_username: grishma2477
+
+  tasks:
+    - name: Install Docker (Ubuntu/Debian)
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Docker login
+      shell: |
+        echo "{{ dkr_pwd }}" | docker login -u "{{ dockerhub_username }}" --password-stdin
+
+    - name: Build Docker image
+      command: docker build -t {{ image_name }}:{{ image_tag }} .
+
+    - name: Push Docker image
+      command: docker push {{ image_name }}:{{ image_tag }}
+
+# ----------------------------------------------------------------
+
+- name: Pull and Run Container on Docker Server
+  hosts: docker_server
+  become: true
+  vars:
+    image_name: grishma2477/mymilestone3
+    image_tag: latest
+    container_name: myapp_container
+  tasks:
+    - name: Install Docker (CentOS/RHEL)
+      yum:
+        name: docker
+        state: present
+        update_cache: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Pull image
+      command: docker pull {{ image_name }}:{{ image_tag }}
+
+    - name: Stop existing container if running
+      command: docker rm -f {{ container_name }}
+
+    - name: Run container
+      command: >
+        docker run -d
+        --name {{ container_name }}
+        -p 80:80
+        --restart always
+        {{ image_name }}:{{ image_tag }}
+
+# ----------------------------------------------------------------
+
+- name: Install and Run Nginx using Jinja2
+  hosts: nginx_server
+  become: true
+
+  vars:
+    server_port: 80
+    domain_name: grishma.dev
+    server_name: "{{ domain_name, 'www.' + domain_name }}"
+    server_ip: "{{ '54.196.9.19' }}"
+    email: "grishma@gmail.com"
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx (Ubuntu/Debian)
+      apt:
+        name: nginx
+        state: present
+
+    - name: Install required packages such as certbot and nginx plugin
+      apt:
+        name:
+          - certbot
+          - python3-certbot-nginx
+        state: present
+
+    - name: Obtain Let's Encrypt certificate
+      command: >
+        certbot certonly --nginx
+        -d {{ domain_name }}
+        --email {{ email }}
+        --agree-tos
+        --non-interactive
+      args:
+        creates: /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem
+
+    - name: Copy nginx config using Jinja2 template
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify: Restart nginx
+
+    - name: Start and Enable Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted

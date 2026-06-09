@@ -1,27 +1,25 @@
-events { }
+events {}
 
 http {
-    include mime.types;
+include mime.types;
 
     # HTTP → HTTPS redirect
     server {
         listen 80;
-        server_name grishma.dev www.grishma.dev;
+        server_name {{ domain_name }};
 
         return 301 https://$host$request_uri;
     }
 
-    # HTTPS server
     server {
         listen 443 ssl;
-        server_name grishma.dev www.grishma.dev;
+        server_name {{ domain_name }};
 
-        # SSL certificate paths (Let's Encrypt)
-        ssl_certificate     /etc/letsencrypt/live/grishma.dev/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/grishma.dev/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/{{ domain_name }}/privkey.pem;
 
         location / {
-            proxy_pass http://34.233.128.42;
+            proxy_pass http://{{ server_ip }};
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
